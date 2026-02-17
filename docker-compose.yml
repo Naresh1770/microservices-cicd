@@ -1,16 +1,16 @@
-version: '3'
+version: '3.9'
 services:
  user-service:
   build: ./user-service
-  cotainer_name: user-service
-  ports: 
-  - "4000:4000"
+  container_name: user-service
+  ports:
+   - "4000:4000"
 
-  order-service:
+ order-service:
    build: ./order-service
    container_name: order-service
-   ports: 
-   - "5000:5000"
+   ports:
+     - "5000:5000"
 
-   depends_on: 
-   - user-service
+   depends_on:
+    - user-service
