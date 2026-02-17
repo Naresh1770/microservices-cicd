@@ -16,8 +16,8 @@ pipeline{
         stage('Build Image'){
             steps{
                 sh'''
-                docker image build -t naresh1770/user-service:latest /user-service
-                docker image build -t naresh1770/order-service:latest /order-service
+                docker image build -t naresh1770/user-service:latest ./user-service
+                docker image build -t naresh1770/order-service:latest ./order-service
                 '''
             }
         }
