@@ -13,9 +13,27 @@ pipeline{
                     branch: 'main'
             }
         }
-        stage('Build services'){
+        stage('Build Image'){
             steps{
-                sh'docker compose build'
+                sh'''
+                docker image build -t naresh1770/user-service:latest /user-service
+                docker image build -t naresh1770/order-service:latest /order-service
+                '''
+            }
+        }
+        stage('Dockerhub Login'){
+            steps{
+                withCredentials([usernamePassword(credentaials: 'docker_hub'
+                                         usernameVariable: 'naresh1770'
+                                         passwordVariable: 'Naresh@1770')]){
+                    sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
+                }
+            }
+        }
+        stage('Image Push'){
+            steps{
+                sh'docker push naresh1770/user-service:latest'
+                sh'docker push naresh1770/order-service:latest'
             }
         }
         stage('Deploy srevices'){
